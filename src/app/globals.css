@@ -1,28 +1,50 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
+/* ===== Tokens base (tema claro por defecto) ===== */
 :root {
   --background: #ffffff;
-  --foreground: #1d1d1d;
-  --grey: #757575;
+  --foreground: #0b0f1a;
+  --muted:      #6b7280;
+  --card:       #f5f5f7;
+  --chip:       #e5e7eb;
+
+  /* Los fonts vienen de next/font (Geist) vía layout.tsx */
+  /* Estos variables ya las define next/font: --font-geist-sans, --font-geist-mono */
 }
 
+/* ===== Overrides para tema oscuro (next-themes añade .dark al <html>) ===== */
+.dark {
+  --background: #0b0f1a;
+  --foreground: #f4f4f5;
+  --muted:      #9ca3af;
+  --card:       #0f1115;
+  --chip:       #111827;
+}
+
+/* ===== Exponer tokens como colores de Tailwind v4 =====
+   Así puedes usar: bg-background, text-foreground, bg-card, bg-chip, text-muted, etc.
+*/
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-grey: var(--grey);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted:      var(--muted);
+  --color-card:       var(--card);
+  --color-chip:       var(--chip);
+
+  /* Conecta las utilidades font-sans y font-mono de Tailwind con tus fuentes de next/font */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #1d1d1d;
-    --grey: #757575;
-  }
-}
+/* ===== Estilos base globales ===== */
+html { scroll-behavior: smooth; }
 
 body {
+  /* Usa los tokens como clases, pero aquí los aplicamos globalmente */
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
